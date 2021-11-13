@@ -31,31 +31,6 @@ window.onload = function () {
         document.getElementById('message').innerHTML = "User is at home";
     }
 
-    var dropZoneOustideHome = _('drop_outside_home');
-
-    dropZoneOustideHome.addEventListener('dragenter', handleDragOutsideEnter, false);
-    dropZoneOustideHome.addEventListener('dragleave', handleDragOutsideLeave, false);
-    dropZoneOustideHome.addEventListener('drop', handleDragOutsideDrop, false);
-
-    function handleDragOutsideEnter(e) {
-        _('app_status').innerHTML = "You are dragging over the " + e.target.getAttribute('id');
-    }
-
-    function handleDragOutsideLeave(e) {
-        _('app_status').innerHTML = "You left the " + e.target.getAttribute('id');
-    }
-
-    function handleDragOutsideDrop(e) {
-        e.preventDefault();
-        var element_id = e.dataTransfer.getData("text");
-        e.target.appendChild(_(element_id));
-        // _(element_id).removeAttribute("draggable")
-        _(element_id).style.cursor = "default";
-        droppedIn = true;
-        _('app_status').innerHTML = "You droped " + element_id + " outside drop zone";
-        document.getElementById('message').innerHTML = "";
-    }
-
     // Draggable element functionality
     var object1 = _('object1');
 
@@ -116,6 +91,7 @@ window.onload = function () {
                 e.target.style.left = originalX;
                 e.target.style.top = originalY;
                 _('app_status').innerHTML = "You let the " + e.target.getAttribute('id') + " go.";
+                document.getElementById('message').innerHTML = "";
             }
         }
     }

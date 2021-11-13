@@ -11,13 +11,23 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
         <script src="script.js"></script>
         <script>
-
+            function dragOverOutsideHome(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                document.getElementById('message').innerHTML = "";
+            }
+            function dropOutsideHome(e) {
+                e.stopPropagation();
+                e.preventDefault();
+                var data = e.dataTransfer.getData("Text");
+                e.target.appendChild(document.getElementById(data));
+            }
         </script>
     </head>
 
     <body>
-        <div id="drop_outside_home" class="container" ondragover="return false">
-            <h2 id="app_status" style="display: none;">Drag status: </h2>
+        <h2 id="app_status" style="display: none;">Drag status: </h2>
+        <div class="container" ondragover="dragOverOutsideHome(event);" ondrop="dropOutsideHome(event);">
             <h1>Drop and Drop User</h1>
             <h3 id="message"></h3>
             <div id="drop_zone" class="dragUser" ondragover="return false">
