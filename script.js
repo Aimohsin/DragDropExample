@@ -5,7 +5,6 @@ function _(id) {
 var droppedIn = false;
 
 window.onload = function () {
-    // Drag zone functionality
     var dropZone = _('drop_zone');
 
     dropZone.addEventListener('dragenter', handleDragEnter, false);
@@ -24,7 +23,6 @@ window.onload = function () {
         e.preventDefault();
         var element_id = e.dataTransfer.getData("text");
         e.target.appendChild(_(element_id));
-        // _(element_id).removeAttribute("draggable")
         _(element_id).style.cursor = "default";
         droppedIn = true;
         _('app_status').innerHTML = "You droped " + element_id + " into drop zone";

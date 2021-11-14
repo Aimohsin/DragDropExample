@@ -22,12 +22,36 @@
                 var data = e.dataTransfer.getData("Text");
                 e.target.appendChild(document.getElementById(data));
             }
+            function handleTouchStart(e) {
+                _('app_status').innerHTML = "Touch start with element " + e.target.getAttribute('id');
+                originalX = (e.target.offsetLeft - 10) + "px";
+                originalY = (e.target.offsetTop - 10) + "px";
+                activeEvent = 'start';
+            }
+            function handleTouchMove(e) {
+                var touchLocation = e.targetTouches[0];
+                var pageX = (touchLocation.pageX - 50) + "px";
+                var pageY = (touchLocation.pageY - 50) + "px";
+                _('app_status').innerHTML = "Touch x " + pageX + " Touch y " + pageY;
+                e.target.style.position = "absolute";
+                e.target.style.left = pageX;
+                e.target.style.top = pageY;
+                document.getElementById('message').innerHTML = "";
+            }
+            function handleTouchEnd(e) {
+                e.preventDefault();
+                var pageX = (parseInt(e.target.style.left) - 50);
+                var pageY = (parseInt(e.target.style.top) - 50);
+                e.target.style.position = "initial";
+                _('app_status').innerHTML = "You droped " + e.target.getAttribute('id') + " into drop zone";
+                document.getElementById('message').innerHTML = "";
+            }
         </script>
     </head>
 
     <body>
         <h2 id="app_status" style="display: none;">Drag status: </h2>
-        <div class="container" ondragover="dragOverOutsideHome(event);" ondrop="dropOutsideHome(event);">
+        <div id="main_container" class="container" ondragover="dragOverOutsideHome(event);" ondrop="dropOutsideHome(event);" ontouchstart="handleTouchStart(event);" ontouchmove="handleTouchMove(event);">
             <h1>Drop and Drop User</h1>
             <h3 id="message"></h3>
             <div id="drop_zone" class="dragUser" ondragover="return false">
